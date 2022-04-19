@@ -44,19 +44,6 @@ public class NewBehaviourScript : MonoBehaviour
         Debug.Log("Player Name");
         Debug.Log(title + " " + playerName);
 
-        string monsterAlam;
-        switch (monsters[1])
-        {
-            case "devil":
-                monsterAlam = "devil monster !";
-                break;
-            case "slime":
-                monsterAlam = "slime monster !";
-                break;
-            default:
-                monsterAlam = "Default monster !";
-                break;
-        }
 
         int health = 10;
         health = Heal(health);
