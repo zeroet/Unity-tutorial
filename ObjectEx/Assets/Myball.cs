@@ -17,22 +17,26 @@ public class Myball : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //rigid.velocity = new Vector3(2, 4, 3);
+        //rigid.velocity = new Vector3(2, 0, 1);
         if(Input.GetButtonDown("Jump"))
         {
             rigid.AddForce(Vector3.up * 1, ForceMode.Impulse);// 점프에 이 식 사용
             Debug.Log(rigid.velocity);
         }
-        Vector3 vec = new Vector3(Input.GetAxisRaw("Horizontal"), 0,Input.GetAxisRaw("Vertical"));
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+
+        Vector3 vec = new Vector3(h, 0, v);
         rigid.AddForce(vec, ForceMode.Impulse);
-
-        rigid.AddTorque(Vector3.up);
     }
-
-    private void OntriggerStay(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other.name == "Cube")
+        if (other.name == "Cu")
             rigid.AddForce(Vector3.up * 2, ForceMode.Impulse);
-
+    }
+    
+    public void Jump()
+    {
+        rigid.AddForce(Vector3.up * 20, ForceMode.Impulse);
     }
 }
