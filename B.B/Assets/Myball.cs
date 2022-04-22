@@ -1,21 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Myball : MonoBehaviour
 {
-    // Start is called before the first frame update
     public int Score;
     public float jumpPower;
     bool isjump;
     Rigidbody rigid;
+    AudioSource audio;
+    public GameManager manager;
+
     void Awake()
     {
        rigid = GetComponent<Rigidbody>();
        isjump = false;
+       audio = GetComponent<AudioSource>();
     }
 
-    // Update is called once per frame
     void  Update()
     {
         if(Input.GetButtonDown("Jump") && !isjump)
@@ -35,7 +38,22 @@ public class Myball : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Floor")
-            isjump = false;
+        if (collision.gameObject.tag == "Floor")
+            isjump = false; 
+    }
+
+    void   OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Item")
+        {
+            Score++;
+            audio.Play();
+            other.gameObject.SetActive(false);
+        }
+        if (other.tag == "Finish")
+        {
+            if (Score == manager.totalItemCount)
+                Debug.Log("Hello");
+        }
     }
 }
